@@ -1,6 +1,7 @@
 import pygame as pg,sys
 from pygame.locals import *
 import time
+import random
 
 #initialize global variables
 XO = 'x'
@@ -133,6 +134,13 @@ def drawXO(row,col):
     #print(game_board)
    
     
+def play_computer():
+    options = [(i+1,j+1) for i in range(3) for j in range(3) if game_board[i][j] is None]
+    selected = random.choice(options)
+    # print(selected)
+    drawXO(*selected)
+    check_win()
+
 
 def userClick():
     #get coordinates of mouse click
@@ -192,6 +200,9 @@ while(True):
             userClick()
             if(winner or draw):
                 reset_game()
-            
+    if(XO == 'o'):
+        play_computer()
+        if(winner or draw):
+            reset_game()       
     pg.display.update()
     CLOCK.tick(fps)
