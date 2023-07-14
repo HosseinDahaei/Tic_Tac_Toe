@@ -133,13 +133,6 @@ def drawXO(row,col):
     #print(posx,posy)
     #print(game_board)
    
-    
-def play_computer():
-    options = [(i+1,j+1) for i in range(3) for j in range(3) if game_board[i][j] is None]
-    selected = random.choice(options)
-    # print(selected)
-    drawXO(*selected)
-    check_win()
 
 
 def userClick():
@@ -188,6 +181,107 @@ def reset_game():
     
 
 game_opening()
+
+# ------------------------------- Computer Player ---------------------------------
+def check_end(state):
+    '''
+    1       X win
+    -1       o win
+    0      draw
+    None    continue
+    '''
+    winner,draw  = None,None
+    win = False
+    # check for winning rows
+    for row in range (0,3):
+        if ((state [row][0] == state[row][1] == state[row][2]) and(state [row][0] is not None)):
+            # this row won
+            winner = state[row][0]
+            win=True
+    # check for winning columns
+    for col in range (0, 3):
+        if (state[0][col] == state[1][col] == state[2][col]) and (state[0][col] is not None):
+            # this column won
+            winner = state[0][col]
+            win = True
+
+    # check for diagonal winners
+    if (state[0][0] == state[1][1] == state[2][2]) and (state[0][0] is not None):
+        # game won diagonally left to right
+        winner = state[0][0]
+        win = True
+       
+
+    if (state[0][2] == state[1][1] == state[2][0]) and (state[0][2] is not None):
+        # game won diagonally right to left
+        winner = state[0][2]
+        win=True
+    
+    if(all([all(row) for row in state]) and winner is None ):
+        draw = True
+    
+    if draw:
+        return 0
+    elif not win:
+        return None
+    elif winner=='x':
+        return 1
+    else:
+        return -1
+
+
+
+
+def minimax(maximize:bool,state:list,last_layer=bool):
+    '''
+    x --> 1
+    o --> 0
+    '''
+    check_status = check_end(state)
+    if check_status == 1:
+        return 1
+    elif check_status == 0:
+        return 0
+    elif check_status == -1:
+        return -1
+    next_move = (None,None)
+    options = [(i,j) for i in range(3) for j in range(3) if game_board[i][j] is None]
+    if maximize:
+        best = -100
+        for move in options:
+            state[move[0]][move[1]]='x'
+            res = minimax(maximize=not maximize,state=state,last_layer=False)
+            state[move[0]][move[1]]=None
+            if res>best:
+                best = res
+                next_move = move
+    else:
+        best = 100
+        for move in options:
+            state[move[0]][move[1]]='o'
+            res = minimax(maximize=not maximize,state=state,last_layer=False)
+            state[move[0]][move[1]]=None
+            if res<best:
+                best = res
+                next_move = move
+    
+    if last_layer:
+        return next_move
+    else:
+        return best
+
+def play_computer():
+    options = [(i,j) for i in range(3) for j in range(3) if game_board[i][j] is None]
+    selected = random.choice(options)
+    selected = minimax(maximize=False,state=game_board,last_layer=True)
+    selected=selected[0]+1,selected[1]+1
+    # print(selected)
+    drawXO(*selected)
+    check_win()
+
+
+# ----------------------------------------------------------------------------------
+
 
 # run the game loop forever
 while(True):
