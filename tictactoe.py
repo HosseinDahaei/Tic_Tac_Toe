@@ -271,6 +271,7 @@ def minimax(maximize:bool,state:list,last_layer=bool):
         return best
 
 def play_computer():
+    time.sleep(0.5)
     options = [(i,j) for i in range(3) for j in range(3) if game_board[i][j] is None]
     selected = random.choice(options)
     selected = minimax(maximize=False,state=game_board,last_layer=True)
