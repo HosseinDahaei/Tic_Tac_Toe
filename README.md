@@ -18,7 +18,7 @@ python tictactoe.py
 
 ### Demo
 
-![tic-toc-toe](https://github.com/HosseinDahaei/Tick_Tac_Toe/assets/47916989/0919b1e5-729d-45d0-a59c-de3ccb65930c)
+![tic-toc-toe](https://github.com/HosseinDahaei/Tic_Tac_Toe/assets/47916989/139864b0-829a-4d1f-b9c8-cb9b4f21840a)
 
 
 ### Minimax Algorithm
