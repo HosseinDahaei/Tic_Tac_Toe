@@ -1,4 +1,4 @@
-# Tick Tac Toe
+# Tik Tac Toe
 
 A Tic Tac Toe game, implemented in Python, pygame. It includes an unbeatable computer AI. Have a Fun!
 
