@@ -1,4 +1,4 @@
-# Tik Tac Toe
+# Tic Tac Toe
 
 A Tic Tac Toe game, implemented in Python, pygame. It includes an unbeatable computer AI. Have a Fun!
 
@@ -11,8 +11,8 @@ You should have `pygame` module installed
 ### Usage
 
 ```bash
-git clone https://github.com/HosseinDahaei/Tick_Tac_Toe
-cd Tick_Tac_Toe
+git clone https://github.com/HosseinDahaei/Tic_Tac_Toe
+cd Tic_Tac_Toe
 python tictactoe.py
 ```
 
